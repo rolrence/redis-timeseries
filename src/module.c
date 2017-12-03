@@ -224,7 +224,11 @@ int TSDB_add(RedisModuleCtx *ctx, RedisModuleString **argv, int argc) {
     Series *series;
     
     if (RedisModule_KeyType(key) == REDISMODULE_KEYTYPE_EMPTY){
-        return RedisModule_ReplyWithError(ctx, "TSDB: the key does not exists");
+        series = NewSeries(RETENTION_DEFAULT_SECS, SAMPLES_PER_CHUNK_DEFAULT_SECS);
+        RedisModule_ModuleTypeSetValue(key, SeriesType, series);
+
+        RedisModule_Log(ctx, "info", "created new series for add operation");
+        // return RedisModule_ReplyWithError(ctx, "TSDB: the key does not exists");
     } else if (RedisModule_ModuleTypeGetType(key) != SeriesType){
         return RedisModule_ReplyWithError(ctx, "TSDB: the key is not a TSDB key");
     } else {
