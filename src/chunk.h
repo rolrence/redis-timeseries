@@ -30,6 +30,7 @@ Chunk * NewChunk(size_t sampleCount);
 void FreeChunk(Chunk *chunk);
 
 void ChunkAddSample(Chunk *chunk, Sample sample);
+void UpdateLastSample(Chunk *chunk, double data);
 int IsChunkFull(Chunk *chunk);
 int ChunkNumOfSample(Chunk *chunk);
 Sample *ChunkGetLastSample(Chunk *chunk);

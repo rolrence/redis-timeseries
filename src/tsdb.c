@@ -62,8 +62,9 @@ int SeriesAddSample(Series *series, api_timestamp_t timestamp, double value) {
     if (timestamp < series->lastTimestamp) {
         return TSDB_ERR_TIMESTAMP_TOO_OLD;
     } else if (timestamp == series->lastTimestamp) {
-        // this is a hack, we want to override the last sample, so lets ignore it first
-        series->lastChunk->num_samples--;
+        // update sample data
+        UpdateLastSample(series->lastChunk, value);
+        return TSDB_OK;
     }
     
     Chunk *currentChunk;

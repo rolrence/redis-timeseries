@@ -46,6 +46,10 @@ void ChunkAddSample(Chunk *chunk, Sample sample) {
     chunk->num_samples++;
 }
 
+void UpdateSample(Chunk *chunk, double data) {
+    chunk->samples[chunk->num_samples].data += data;
+}
+
 ChunkIterator NewChunkIterator(Chunk* chunk) {
     return (ChunkIterator){.chunk = chunk, .currentIndex = 0};
 }
